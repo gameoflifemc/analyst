@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Plugin(id = "loginer", name = "Loginer", version = BuildConstants.VERSION)
 public class Loginer {
@@ -65,8 +67,9 @@ public class Loginer {
         }
 
         ByteArrayDataInput in = ByteStreams.newDataInput(event.getData());
-
-        String log = in.readUTF()+"\n";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        new Date().getTime();
+        String log = "["+formatter.format(new Date())+"] "+in.readUTF()+"\n";
         try {
             Files.write(logFile.toPath(), log.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
